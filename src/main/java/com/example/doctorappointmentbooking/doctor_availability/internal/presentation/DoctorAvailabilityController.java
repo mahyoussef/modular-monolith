@@ -2,7 +2,7 @@ package com.example.doctorappointmentbooking.doctor_availability.internal.presen
 
 import com.example.doctorappointmentbooking.doctor_availability.internal.business.DoctorAvailabilityService;
 import com.example.doctorappointmentbooking.doctor_availability.internal.business.models.AddTimeSlotRequest;
-
+import com.example.doctorappointmentbooking.doctor_availability.internal.business.models.TimeSlotAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class DoctorAvailabilityController {
     @GetMapping("/v1/time-slots")
     public DeferredResult<ResponseEntity<?>> getAllTimeSlots() {
         DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
-        doctorAvailabilityService.getAllSlots()
+        doctorAvailabilityService.getAllTimeSlots()
                 .thenAccept(result -> deferredResult.setResult(ResponseEntity.ok().body(result)));
         return deferredResult;
     }
@@ -31,9 +31,19 @@ public class DoctorAvailabilityController {
     @PostMapping("/v1/time-slots")
     public DeferredResult<ResponseEntity<?>> addTimeSlot(@RequestBody AddTimeSlotRequest timeSlotRequest) {
         DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
+        // TODO: Refactoring in-case this kind of pattern get repeated to have more of a generic approach
         doctorAvailabilityService.addTimeSlot(timeSlotRequest)
-                        .thenAccept(result -> deferredResult.setResult(ResponseEntity.status(HttpStatus.CREATED)
-                                .body(result)));
+                .thenAccept(result -> deferredResult.setResult(ResponseEntity.status(HttpStatus.CREATED)
+                        .body(result)))
+                .exceptionally(ex -> {
+                    if (ex.getCause() instanceof TimeSlotAlreadyExistsException) {
+                        deferredResult.setResult(ResponseEntity.status(HttpStatus.CONFLICT)
+                                .body(new ErrorResponse(ex.getCause().getMessage())));
+                    }
+                    deferredResult.setResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .body(new ErrorResponse("An unexpected error occurred")));
+                    return null;
+                });
         return deferredResult;
     }
 }

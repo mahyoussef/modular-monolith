@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +31,7 @@ public class DoctorAvailabilityInMemoryRepository implements DoctorAvailabilityR
                             "Mahmoud Youssef",
                             false,
                             300)
-                    )
+            )
     );
 
     public CompletableFuture<List<TimeSlot>> getTimeSlots() {
@@ -40,5 +41,11 @@ public class DoctorAvailabilityInMemoryRepository implements DoctorAvailabilityR
     public CompletableFuture<Void> save(TimeSlot timeSlotToAdd) {
         CompletableFuture.supplyAsync(() -> timeSlots.add(timeSlotToAdd));
         return null;
+    }
+
+    public CompletableFuture<Optional<TimeSlot>> getTimeSlotByDoctorAndDateTime(String doctorId, LocalDateTime date) {
+        return CompletableFuture.supplyAsync(() -> timeSlots.stream()
+                .filter(ts -> ts.doctorId().equalsIgnoreCase(doctorId) && ts.date().isEqual(date))
+                .findFirst());
     }
 }
