@@ -8,6 +8,5 @@ import java.util.concurrent.CompletableFuture;
 public interface DoctorAvailabilityRepository {
     CompletableFuture<List<TimeSlot>> getTimeSlots();
     CompletableFuture<Void> save(TimeSlot timeSlotToAdd);
-
     CompletableFuture<Optional<TimeSlot>> getTimeSlotByDoctorAndDateTime(String doctorId, LocalDateTime date);
 }
