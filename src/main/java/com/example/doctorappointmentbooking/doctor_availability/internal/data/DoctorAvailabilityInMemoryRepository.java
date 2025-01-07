@@ -39,8 +39,10 @@ public class DoctorAvailabilityInMemoryRepository implements DoctorAvailabilityR
     }
 
     public CompletableFuture<Void> save(TimeSlot timeSlotToAdd) {
-        CompletableFuture.supplyAsync(() -> timeSlots.add(timeSlotToAdd));
-        return null;
+        return CompletableFuture.supplyAsync(() -> {
+            timeSlots.add(timeSlotToAdd);
+            return null;
+        });
     }
 
     public CompletableFuture<Optional<TimeSlot>> getTimeSlotByDoctorAndDateTime(String doctorId, LocalDateTime date) {

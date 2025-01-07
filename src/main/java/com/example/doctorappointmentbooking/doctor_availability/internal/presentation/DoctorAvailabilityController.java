@@ -39,6 +39,7 @@ public class DoctorAvailabilityController {
                         deferredResult.setResult(ResponseEntity.status(HttpStatus.CONFLICT)
                                 .body(new ErrorResponse(ex.getCause().getMessage())));
                     }
+                    System.out.println(ex);
                     deferredResult.setResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                             .body(new ErrorResponse("An unexpected error occurred")));
                     return null;
