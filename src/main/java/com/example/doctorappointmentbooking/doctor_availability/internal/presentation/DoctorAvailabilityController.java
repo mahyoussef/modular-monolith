@@ -33,8 +33,7 @@ public class DoctorAvailabilityController {
         DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<>();
         // TODO: Refactoring in-case this kind of pattern get repeated to have more of a generic approach
         doctorAvailabilityService.addTimeSlot(timeSlotRequest)
-                .thenAccept(result -> deferredResult.setResult(ResponseEntity.status(HttpStatus.CREATED)
-                        .body(result)))
+                .thenAccept(result -> deferredResult.setResult(ResponseEntity.status(HttpStatus.CREATED).body(result)))
                 .exceptionally(ex -> {
                     if (ex.getCause() instanceof TimeSlotAlreadyExistsException) {
                         deferredResult.setResult(ResponseEntity.status(HttpStatus.CONFLICT)
