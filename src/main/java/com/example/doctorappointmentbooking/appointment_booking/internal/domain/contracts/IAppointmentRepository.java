@@ -2,8 +2,10 @@ package com.example.doctorappointmentbooking.appointment_booking.internal.domain
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.Appointment;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface IAppointmentRepository {
     CompletableFuture<Void> save(Appointment appointment);
+    CompletableFuture<List<Appointment>> getNewAppointments();
 }

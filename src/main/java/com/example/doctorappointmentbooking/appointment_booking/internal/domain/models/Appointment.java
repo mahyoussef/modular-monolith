@@ -17,19 +17,19 @@ public class Appointment {
     private Appointment(String id,
                         String slotId,
                         Patient patient,
-                        String reservedAt,
+                        LocalDateTime reservedAt,
                         AppointmentStatus appointmentStatus) {
         this.id = id;
         this.slotId = slotId;
         this.patient = patient;
-        this.reservedAt = ofDate(reservedAt);
+        this.reservedAt = reservedAt;
         this.appointmentStatus = appointmentStatus;
     }
 
     public static Appointment of(String appointmentId,
                                  String slotId,
                                  Patient patient,
-                                 String reservedAt,
+                                 LocalDateTime reservedAt,
                                  AppointmentStatus appointmentStatus
                                  ) {
         return new Appointment(appointmentId,
@@ -46,7 +46,7 @@ public class Appointment {
         Appointment appointment = new Appointment(appointmentId,
                 slotId,
                 patient,
-                reservedAt,
+                ofDate(reservedAt),
                 AppointmentStatus.NEW);
         appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
         return appointment;
@@ -59,7 +59,7 @@ public class Appointment {
         Appointment appointment = new Appointment(appointmentId,
                 slotId,
                 patient,
-                reservedAt,
+                ofDate(reservedAt),
                 AppointmentStatus.CANCELLED);
         appointment.occurredEvents.add(CancelAppointmentEvent.of(appointment));
         return appointment;
@@ -72,18 +72,22 @@ public class Appointment {
         Appointment appointment = new Appointment(appointmentId,
                 slotId,
                 patient,
-                reservedAt,
+                ofDate(reservedAt),
                 AppointmentStatus.COMPLETED);
         appointment.occurredEvents.add(CompleteAppointmentEvent.of(appointment));
         return appointment;
     }
 
-    private LocalDateTime ofDate(String reservedAt) {
+    private static LocalDateTime ofDate(String reservedAt) {
         LocalDateTime date = LocalDateTime.parse(reservedAt);
         if (LocalDateTime.now().isAfter(date)) {
             throw new IllegalArgumentException("Reservation date is too far in the past.");
         }
         return date;
+    }
+
+    public static boolean isUpcomingAppointment(Appointment appointment) {
+        return appointment.getAppointmentStatus().equals(AppointmentStatus.NEW) && appointment.getReservedAt().isAfter(LocalDateTime.now());
     }
 
     public List<AppointmentEvent> getOccurredEvents() {

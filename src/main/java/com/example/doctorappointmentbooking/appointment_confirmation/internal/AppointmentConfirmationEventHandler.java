@@ -1,7 +1,7 @@
 package com.example.doctorappointmentbooking.appointment_confirmation.internal;
 
-import com.example.doctorappointmentbooking.appointment_booking.shared.AppointmentConfirmationEvent;
-import com.example.doctorappointmentbooking.appointment_booking.shared.NewAppointmentEventDto;
+import com.example.doctorappointmentbooking.appointment_booking.shared.events.AppointmentConfirmationEvent;
+import com.example.doctorappointmentbooking.appointment_booking.shared.events.NewAppointmentEventDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;

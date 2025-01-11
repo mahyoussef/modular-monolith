@@ -2,8 +2,8 @@ package com.example.doctorappointmentbooking.appointment_booking.internal.infras
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.AppointmentEvent;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.NewAppointmentEvent;
-import com.example.doctorappointmentbooking.appointment_booking.shared.AppointmentConfirmationEvent;
-import com.example.doctorappointmentbooking.appointment_booking.shared.NewAppointmentEventDto;
+import com.example.doctorappointmentbooking.appointment_booking.shared.events.AppointmentConfirmationEvent;
+import com.example.doctorappointmentbooking.appointment_booking.shared.events.NewAppointmentEventDto;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;

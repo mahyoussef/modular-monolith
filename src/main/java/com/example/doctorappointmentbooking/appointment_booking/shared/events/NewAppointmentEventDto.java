@@ -1,4 +1,4 @@
-package com.example.doctorappointmentbooking.appointment_booking.shared;
+package com.example.doctorappointmentbooking.appointment_booking.shared.events;
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.Appointment;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.AppointmentEvent;

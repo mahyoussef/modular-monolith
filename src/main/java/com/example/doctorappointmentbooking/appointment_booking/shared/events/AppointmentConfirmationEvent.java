@@ -1,4 +1,4 @@
-package com.example.doctorappointmentbooking.appointment_booking.shared;
+package com.example.doctorappointmentbooking.appointment_booking.shared.events;
 
 import org.springframework.context.ApplicationEvent;
 
