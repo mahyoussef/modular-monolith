@@ -4,6 +4,8 @@ import com.example.doctorappointmentbooking.doctor_availability.internal.busines
 import com.example.doctorappointmentbooking.doctor_availability.internal.business.models.TimeSlotAlreadyExistsException;
 import com.example.doctorappointmentbooking.doctor_availability.internal.data.DoctorAvailabilityRepository;
 import com.example.doctorappointmentbooking.doctor_availability.internal.data.TimeSlot;
+import com.example.doctorappointmentbooking.doctor_availability.shared.IDoctorAvailability;
+import com.example.doctorappointmentbooking.doctor_availability.shared.TimeSlotDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Service
-public class DoctorAvailabilityService {
+public class DoctorAvailabilityService implements IDoctorAvailability {
     private final DoctorAvailabilityRepository doctorAvailabilityRepository;
 
     public DoctorAvailabilityService(DoctorAvailabilityRepository doctorAvailabilityRepository) {
@@ -49,5 +51,12 @@ public class DoctorAvailabilityService {
     private CompletableFuture<Optional<TimeSlot>> getTimeSlotBy(String doctorId, String timeSlotDate) {
         LocalDateTime dateTime = LocalDateTime.parse(timeSlotDate);
         return doctorAvailabilityRepository.getTimeSlotByDoctorAndDateTime(doctorId, dateTime);
+    }
+
+    public CompletableFuture<List<TimeSlotDto>> getAvailableTimeSlots() {
+        return getAllTimeSlots().thenApply(timeSlots -> timeSlots.stream()
+                .filter(timeSlot -> !timeSlot.isReserved())
+                .map(timeSlot -> new TimeSlotDto(timeSlot.id(), timeSlot.date(),
+                        timeSlot.doctorId(), timeSlot.doctorName(), timeSlot.cost())).toList());
     }
 }
