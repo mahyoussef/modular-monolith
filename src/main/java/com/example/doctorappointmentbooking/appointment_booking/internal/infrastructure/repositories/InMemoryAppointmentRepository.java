@@ -2,7 +2,7 @@ package com.example.doctorappointmentbooking.appointment_booking.internal.infras
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.contracts.IAppointmentRepository;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.Appointment;
-import com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure.AppointmentEventPublisher;
+import com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure.events.AppointmentEventPublisher;
 import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.CompletableFuture;

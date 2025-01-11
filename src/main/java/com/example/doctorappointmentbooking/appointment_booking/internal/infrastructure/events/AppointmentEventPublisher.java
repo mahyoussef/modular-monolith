@@ -1,4 +1,4 @@
-package com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure;
+package com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure.events;
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.AppointmentEvent;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.NewAppointmentEvent;

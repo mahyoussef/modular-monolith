@@ -1,9 +1,8 @@
-package com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure;
+package com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure.events;
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.NewAppointmentEvent;
 import org.springframework.context.ApplicationEvent;
 
-import java.time.Clock;
 
 public class AppointmentConfirmationEvent extends ApplicationEvent {
 

@@ -61,7 +61,7 @@ public class Appointment {
                 patient,
                 reservedAt,
                 AppointmentStatus.CANCELLED);
-        appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
+        appointment.occurredEvents.add(CancelAppointmentEvent.of(appointment));
         return appointment;
     }
 
@@ -74,7 +74,7 @@ public class Appointment {
                 patient,
                 reservedAt,
                 AppointmentStatus.COMPLETED);
-        appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
+        appointment.occurredEvents.add(CompleteAppointmentEvent.of(appointment));
         return appointment;
     }
 
