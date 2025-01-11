@@ -2,6 +2,8 @@ package com.example.doctorappointmentbooking.appointment_booking.internal.infras
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.AppointmentEvent;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.NewAppointmentEvent;
+import com.example.doctorappointmentbooking.appointment_booking.shared.AppointmentConfirmationEvent;
+import com.example.doctorappointmentbooking.appointment_booking.shared.NewAppointmentEventDto;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,9 @@ public class AppointmentEventPublisher implements IAppointmentEventPublisher, Ap
 
     public void publish(AppointmentEvent appointmentEvent) {
         if (appointmentEvent instanceof NewAppointmentEvent event) {
-            this.applicationEventPublisher.publishEvent(new AppointmentConfirmationEvent(event));
+            NewAppointmentEventDto eventDto =
+                    new NewAppointmentEventDto(event.appointmentId(), event.reservedAt(), event.patientName());
+            this.applicationEventPublisher.publishEvent(new AppointmentConfirmationEvent(eventDto));
         }
     }
 }

@@ -1,12 +1,11 @@
-package com.example.doctorappointmentbooking.appointment_booking.internal.infrastructure.events;
+package com.example.doctorappointmentbooking.appointment_booking.shared;
 
-import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.NewAppointmentEvent;
 import org.springframework.context.ApplicationEvent;
 
 
 public class AppointmentConfirmationEvent extends ApplicationEvent {
 
-    public AppointmentConfirmationEvent(NewAppointmentEvent source) {
+    public AppointmentConfirmationEvent(NewAppointmentEventDto source) {
         super(source);
     }
 
