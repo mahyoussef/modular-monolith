@@ -26,6 +26,19 @@ public class Appointment {
         this.appointmentStatus = appointmentStatus;
     }
 
+    public static Appointment of(String appointmentId,
+                                 String slotId,
+                                 Patient patient,
+                                 String reservedAt,
+                                 AppointmentStatus appointmentStatus
+                                 ) {
+        return new Appointment(appointmentId,
+                slotId,
+                patient,
+                reservedAt,
+                appointmentStatus);
+    }
+
     public static Appointment newAppointment(String slotId,
                                              Patient patient,
                                              String reservedAt) {
@@ -35,6 +48,32 @@ public class Appointment {
                 patient,
                 reservedAt,
                 AppointmentStatus.NEW);
+        appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
+        return appointment;
+    }
+
+    public static Appointment cancelAppointment(String appointmentId,
+                                                String slotId,
+                                                Patient patient,
+                                                String reservedAt) {
+        Appointment appointment = new Appointment(appointmentId,
+                slotId,
+                patient,
+                reservedAt,
+                AppointmentStatus.CANCELLED);
+        appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
+        return appointment;
+    }
+
+    public static Appointment completeAppointment(String appointmentId,
+                                                String slotId,
+                                                Patient patient,
+                                                String reservedAt) {
+        Appointment appointment = new Appointment(appointmentId,
+                slotId,
+                patient,
+                reservedAt,
+                AppointmentStatus.COMPLETED);
         appointment.occurredEvents.add(NewAppointmentEvent.of(appointment));
         return appointment;
     }
