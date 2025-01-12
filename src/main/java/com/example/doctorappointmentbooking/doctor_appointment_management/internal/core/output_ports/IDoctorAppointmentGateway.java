@@ -8,4 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public interface IDoctorAppointmentGateway {
 
     CompletableFuture<List<ViewAppointmentResponse>> getUpcomingAppointments();
+
+    CompletableFuture<Void> cancelAppointment(String appointmentId);
+    CompletableFuture<Void> completeAppointment(String appointmentId);
 }

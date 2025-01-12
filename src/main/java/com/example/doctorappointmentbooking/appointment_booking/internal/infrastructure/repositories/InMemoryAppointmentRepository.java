@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -62,5 +63,11 @@ public class InMemoryAppointmentRepository implements IAppointmentRepository {
     public CompletableFuture<List<Appointment>> getNewAppointments() {
         return CompletableFuture.supplyAsync(() ->
                 appointments.stream().filter(Appointment::isUpcomingAppointment).toList());
+    }
+
+    public CompletableFuture<Optional<Appointment>> getAppointmentById(String appointmentId) {
+        return CompletableFuture.supplyAsync(() ->
+                appointments.stream()
+                        .filter(appointment -> appointment.getId().equalsIgnoreCase(appointmentId)).findFirst());
     }
 }

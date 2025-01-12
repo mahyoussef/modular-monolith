@@ -1,7 +1,7 @@
 package com.example.doctorappointmentbooking.appointment_booking.internal.api;
 
-import com.example.doctorappointmentbooking.appointment_booking.internal.application.commands.BookAppointment;
-import com.example.doctorappointmentbooking.appointment_booking.internal.application.commands.BookAppointmentHandler;
+import com.example.doctorappointmentbooking.appointment_booking.internal.application.commands.book_appointment.BookAppointment;
+import com.example.doctorappointmentbooking.appointment_booking.internal.application.commands.book_appointment.BookAppointmentHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

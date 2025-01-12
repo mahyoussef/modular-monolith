@@ -1,4 +1,4 @@
-package com.example.doctorappointmentbooking.appointment_booking.internal.application.commands;
+package com.example.doctorappointmentbooking.appointment_booking.internal.application.commands.book_appointment;
 
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.contracts.IAppointmentRepository;
 import com.example.doctorappointmentbooking.appointment_booking.internal.domain.models.Appointment;
