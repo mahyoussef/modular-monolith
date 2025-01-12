@@ -14,6 +14,7 @@ public class AppointmentConfirmationEventHandler {
     @EventListener
     void handleAppointmentConfirmationEvent(AppointmentConfirmationEvent event) {
         // TODO: Get the exactly time slot talking to doctor availability module...
+        // TODO: Create a separate service for sending notifications ...
         NewAppointmentEventDto appointmentEventDto = (NewAppointmentEventDto) event.getSource();
         log.info("Notifying Patient....");
         log.info("Thanks {} , your appointment is confirmed for Dr.Mahmoud at {} with reference: {}",
